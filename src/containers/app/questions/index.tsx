@@ -15,7 +15,8 @@ const Questions: React.FC = () => {
     stage_slug: string;
     input_type: string;
     question: string;
-    id: number;
+    id?: number;
+    options?: any;
   }>();
 
   React.useEffect(() => {
@@ -27,7 +28,16 @@ const Questions: React.FC = () => {
       <div className="flex flex-row mb-3">
         <div className="flex flex-row w-[50%]"></div>
         <div className="flex flex-row-reverse w-[50%]">
-          <Button onClick={() => setShowModal(!showModal)}>
+          <Button
+            onClick={() => {
+              setShowModal(!showModal);
+              setModalQue({
+                input_type: "",
+                question: "",
+                stage_slug: "",
+              });
+            }}
+          >
             + Add Question
           </Button>
         </div>
@@ -56,7 +66,7 @@ const Questions: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {questions.map((_, index) => {
+              {questions?.map((_, index) => {
                 const { question, input_type, id, stage } = _;
                 const isLast = index === questions.length - 1;
                 const classes = isLast
@@ -74,11 +84,11 @@ const Questions: React.FC = () => {
                         {id}
                       </Typography>
                     </td>
-                    <td className={classes}>
+                    <td className={classes} style={{ maxWidth: "300px" }}>
                       <Typography
                         variant="small"
                         color="blue-gray"
-                        className="font-normal"
+                        className="font-normal break-all"
                       >
                         {question}
                       </Typography>
@@ -92,13 +102,13 @@ const Questions: React.FC = () => {
                         {input_type}
                       </Typography>
                     </td>
-                    <td className={classes}>
+                    <td className={classes} style={{ maxWidth: "300px" }}>
                       <Typography
                         as="a"
                         href="#"
                         variant="small"
                         color="blue-gray"
-                        className="font-medium"
+                        className="font-medium break-all"
                       >
                         {stage?.name}
                       </Typography>
@@ -113,6 +123,7 @@ const Questions: React.FC = () => {
                             question: _.question,
                             stage_slug: _.stage?.slug!,
                             id: _.id!,
+                            options: _.options,
                           });
                         }}
                       />
@@ -127,7 +138,13 @@ const Questions: React.FC = () => {
 
       <EditAndUpdate
         open={showModal}
-        handleClick={() => setShowModal(!showModal)}
+        handleClick={(data) => {
+          if (typeof data === "boolean") setShowModal(!showModal);
+          else {
+            setShowModal(!showModal);
+            setQuestions(data);
+          }
+        }}
         question={modalQue}
       />
     </React.Fragment>

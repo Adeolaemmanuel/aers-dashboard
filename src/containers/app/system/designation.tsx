@@ -88,6 +88,7 @@ const Designation: React.FC<Partial<ViewSystemProps>> = ({ handleClick }) => {
                           handleClick?.({
                             name,
                             system: "designation",
+                            slug,
                             show: true,
                           });
                         }}

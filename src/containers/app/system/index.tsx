@@ -23,7 +23,7 @@ const system = [
   },
 ];
 
-const System: React.FC<ViewSystemProps> = ({}) => {
+const System: React.FC = () => {
   const [showModal, setShowModal] = React.useState(false);
   const [dto, setDto] = React.useState<any>();
   const [systemVal, setSystemVal] = React.useState<System>();
@@ -51,9 +51,10 @@ const System: React.FC<ViewSystemProps> = ({}) => {
                   }
                   if (typeof val === "boolean") {
                     setShowModal(val);
-                    setDto('')
+                    setDto("");
                   }
                 }}
+                refetchData={dto}
               />
             </TabPanel>
           ))}
@@ -63,7 +64,13 @@ const System: React.FC<ViewSystemProps> = ({}) => {
         open={showModal}
         dto={dto}
         system={systemVal!}
-        handleClick={() => setShowModal(!showModal)}
+        handleClick={(data) => {
+          if (typeof data === "boolean") setShowModal(!showModal);
+          else {
+            setShowModal(!showModal);
+            setDto(data);
+          }
+        }}
       />
     </React.Fragment>
   );

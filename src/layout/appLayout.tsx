@@ -4,6 +4,7 @@ import { BiSolidDashboard } from "react-icons/bi";
 import { BsQuestionSquareFill } from "react-icons/bs";
 import { GrSystem } from "react-icons/gr";
 import { HiUsers } from "react-icons/hi";
+import { SiAnswer } from "react-icons/si";
 
 const AppLayout: React.FC<LayoutProps> = ({ children }) => {
   const location = useLocation();
@@ -18,6 +19,11 @@ const AppLayout: React.FC<LayoutProps> = ({ children }) => {
       name: "Users",
       link: "/users",
       Icon: HiUsers,
+    },
+    {
+      name: "Answers",
+      link: "/answers",
+      Icon: SiAnswer,
     },
     {
       name: "Questions",

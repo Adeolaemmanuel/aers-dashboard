@@ -8,7 +8,6 @@ import {
   Button,
   Spinner,
 } from "@material-tailwind/react";
-import { useForm } from "react-hook-form";
 import Api from "../../../services/api.service";
 
 const api = Api.getInstance();
@@ -19,13 +18,13 @@ const EditAndUpdate: React.FC<ViewSystemProps> = ({
   dto,
   system,
 }) => {
-  const { register } = useForm();
-
   const [data, setData] = React.useState(dto);
   const [loading, setLoading] = React.useState(false);
   const [deleteLoading, setDeleteLoading] = React.useState(false);
 
   React.useEffect(() => {
+    console.log(dto);
+
     setData(dto);
   }, [dto]);
 
@@ -47,15 +46,13 @@ const EditAndUpdate: React.FC<ViewSystemProps> = ({
           <form>
             <div className="mt-3">
               <Input
-                placeholder="name"
                 label="Name"
                 crossOrigin={""}
                 type="text"
-                {...register("name")}
-                value={dto?.name || " "}
+                value={data?.name}
                 onChange={(e) =>
                   setData((state: any) => {
-                    return { ...state, question: e.target.value };
+                    return { ...state, name: e.target.value };
                   })
                 }
               />
@@ -63,12 +60,21 @@ const EditAndUpdate: React.FC<ViewSystemProps> = ({
           </form>
         </DialogBody>
         <DialogFooter className="flex gap-3">
-          {data?.name && (
+          {dto?.name && (
             <Button
               variant="gradient"
               color="red"
-              onClick={() => {
-                api.handleSystem("delete", system, dto, setDeleteLoading);
+              onClick={async () => {
+                const res = await api.handleSystem(
+                  "delete",
+                  system,
+                  data,
+                  setDeleteLoading
+                );
+                if (res) {
+                  const resp = await api.handleRefetchSystem(system);
+                  handleClick?.(resp);
+                }
               }}
             >
               {deleteLoading ? <Spinner /> : <span>Delete</span>}
@@ -77,8 +83,17 @@ const EditAndUpdate: React.FC<ViewSystemProps> = ({
           <Button
             variant="gradient"
             color="green"
-            onClick={() => {
-              api.handleSystem("add", system, dto, setLoading);
+            onClick={async () => {
+              const res = await api.handleSystem(
+                !data?.name ? "add" : "update",
+                system,
+                data,
+                setLoading
+              );
+              if (res) {
+                const resp = await api.handleRefetchSystem(system);
+                handleClick?.(resp);
+              }
             }}
           >
             {loading ? (

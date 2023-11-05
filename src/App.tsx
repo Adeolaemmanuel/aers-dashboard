@@ -6,6 +6,7 @@ import DashBoard from "./containers/app/dashboard";
 import Questions from "./containers/app/questions";
 import Users from "./containers/app/users";
 import System from "./containers/app/system";
+import Answers from "./containers/app/answers";
 
 function App() {
   const routes = createBrowserRouter([
@@ -32,6 +33,10 @@ function App() {
         {
           path: "/users",
           element: <Users />,
+        },
+        {
+          path: "/answers",
+          element: <Answers />,
         },
       ],
     },

@@ -5,14 +5,17 @@ import { FiMoreHorizontal } from "react-icons/fi";
 
 const TABLE_HEAD = ["S/N", "NAME", "SLUG", "TOTAL QUESTION", ""];
 
-const Stages: React.FC<Partial<ViewSystemProps>> = ({ handleClick }) => {
+const Stages: React.FC<Partial<ViewSystemProps>> = ({
+  handleClick,
+  refetchData,
+}) => {
   const api = Api.getInstance();
   const [stages, setStages] = React.useState<Stages[]>([]);
   const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
     api.getAllStages(setLoading).then((stages) => setStages(stages!));
-  }, []);
+  }, [refetchData]);
 
   return (
     <React.Fragment>
@@ -98,6 +101,7 @@ const Stages: React.FC<Partial<ViewSystemProps>> = ({ handleClick }) => {
                         onClick={() => {
                           handleClick?.({
                             name,
+                            slug,
                             system: "designation",
                             show: true,
                           });

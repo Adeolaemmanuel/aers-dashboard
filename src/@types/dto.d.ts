@@ -30,6 +30,7 @@ type Answers = Base & {
   value: string;
   values: any;
   question: Questions;
+  user: User;
 };
 
 type Stages = Base & {
@@ -42,4 +43,11 @@ type Designation = Base & {
   name: string;
   slug: string;
   User: User[];
+};
+
+type SystemStateDto = {
+  user: number;
+  designation: number;
+  questions: number;
+  stages: number;
 };

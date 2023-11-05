@@ -1,19 +1,17 @@
-import { Card, Typography, Spinner, Button } from "@material-tailwind/react";
+import { Card, Typography, Spinner } from "@material-tailwind/react";
 import React from "react";
 import Api from "../../../services/api.service";
-// import ViewUsers from "./view";
 
-const TABLE_HEAD = ["S/N", "NAME", "EMAIL", "question", "answers", ""];
+const TABLE_HEAD = ["S/N", "NAME", "EMAIL", "QUESTIONS", "ANSWERS"];
 
-const Users: React.FC = () => {
-  const api = Api.getInstance();
-  const [users, setUsers] = React.useState<User[]>([]);
+const api = Api.getInstance();
+
+const Answers: React.FC = () => {
+  const [answers, setAnswers] = React.useState<Answers[]>([]);
   const [loading, setLoading] = React.useState(false);
-  const [viewMore, setViewMore] = React.useState(false);
-  const [userIndex, setUserIndex] = React.useState(0);
 
   React.useEffect(() => {
-    api.getAllUsers(setLoading).then((users) => setUsers(users!));
+    api.getAllAnswers(setLoading).then(([answers]) => setAnswers(answers));
   }, []);
 
   return (
@@ -28,7 +26,7 @@ const Users: React.FC = () => {
                 {TABLE_HEAD.map((head) => (
                   <th
                     key={head}
-                    className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+                    className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 break-all"
                   >
                     <Typography
                       variant="small"
@@ -42,91 +40,73 @@ const Users: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {users?.map(
-                (
-                  { email, first_name, last_name, id, designation, questions },
-                  index
-                ) => {
-                  const isLast = index === users?.length! - 1;
-                  const classes = isLast
-                    ? "p-4"
-                    : "p-4 border-b border-blue-gray-50";
+              {answers?.map(({ user, id, question, value, values }, index) => {
+                const isLast = index === answers?.length! - 1;
+                const classes = isLast
+                  ? "p-4"
+                  : "p-4 border-b border-blue-gray-50";
 
-                  return (
-                    <tr key={id}>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {id}
-                        </Typography>
-                      </td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {last_name + " " + first_name}
-                        </Typography>
-                      </td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {email}
-                        </Typography>
-                      </td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {designation?.name}
-                        </Typography>
-                      </td>
-                      <td className={classes}>
-                        <Typography
-                          as="a"
-                          href="#"
-                          variant="small"
-                          color="blue-gray"
-                          className="font-medium"
-                        >
-                          {questions?.length!}
-                        </Typography>
-                      </td>
-                      <td className={classes}>
-                        <Button
-                          onClick={() => {
-                            setViewMore(!viewMore);
-                            setUserIndex(index);
-                          }}
-                        >
-                          View
-                        </Button>
-                      </td>
-                    </tr>
-                  );
-                }
-              )}
+                return (
+                  <tr key={id}>
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {id}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {user?.last_name + " " + user?.first_name}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {user?.email}
+                      </Typography>
+                    </td>
+                    <td className={classes} style={{ maxWidth: "300px" }}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal break-all"
+                      >
+                        {question?.question}
+                      </Typography>
+                    </td>
+                    <td className={classes} style={{ maxWidth: "300px" }}>
+                      <Typography
+                        as="a"
+                        href="#"
+                        variant="small"
+                        color="blue-gray"
+                        className="font-medium"
+                      >
+                        {value ||
+                          [...values].map((v) => {
+                            return v;
+                          })}
+                      </Typography>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         )}
       </Card>
-
-      {/* <ViewUsers
-        open={viewMore}
-        handleClick={() => setViewMore(!viewMore)}
-        users={users[userIndex]}
-      /> */}
     </React.Fragment>
   );
 };
 
-export default Users;
+export default Answers;

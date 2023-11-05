@@ -3,7 +3,7 @@ type LayoutProps = {
 };
 
 type System = "designation" | "stages";
-type ViewType = "delete" | "add";
+type ViewType = "delete" | "add" | 'update';
 
 type ViewUserProps = {
   open: boolean;
@@ -18,13 +18,15 @@ type ViewQuestionProps = {
     stage_slug: string;
     input_type: string;
     question: string;
-    id: number;
+    id?: number;
+    options?: any
   };
 };
 
 type ViewSystemProps = {
   open: boolean;
   handleClick?: (data: any) => void;
-  dto: { name: string };
+  dto: { name: string, slug: string };
   system: System;
+  refetchData?: any
 };
