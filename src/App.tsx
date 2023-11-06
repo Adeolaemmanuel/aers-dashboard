@@ -7,6 +7,7 @@ import Questions from "./containers/app/questions";
 import Users from "./containers/app/users";
 import System from "./containers/app/system";
 import Answers from "./containers/app/answers";
+import UserStorage from "./utils/storage/user";
 
 function App() {
   const routes = createBrowserRouter([
@@ -15,11 +16,12 @@ function App() {
       element: <Layout />,
       children: [
         {
-          index: true,
+          index: !UserStorage.getIsAuth(),
           element: <Login />,
         },
         {
-          path: "/dashboard",
+          index: UserStorage.getIsAuth(),
+          path: UserStorage.getIsAuth() ? "/dashboard" : "",
           element: <DashBoard />,
         },
         {

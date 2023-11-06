@@ -9,8 +9,8 @@ const Layout: React.FC<LayoutProps> = ({}) => {
   const navigate = useNavigate();
 
   React.useLayoutEffect(() => {
-    if (!UserStorage.getIsAuth()) navigate("/");
     if (UserStorage.getIsAuth()) navigate("/dashboard");
+    if (!UserStorage.getIsAuth()) navigate("/");
   }, [UserStorage.getIsAuth()]);
 
   return (

@@ -5,6 +5,10 @@ export default class UserStorage {
     return JSON.parse(this.storage.getItem("user")!);
   }
 
+  static ClearStorage() {
+    return this.storage.clear();
+  }
+
   private static SetUser(key: string, data: string | boolean | number) {
     const store = this.GetUser();
 

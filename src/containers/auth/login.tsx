@@ -8,6 +8,7 @@ const Login: React.FC = () => {
   const submit = () => {
     UserStorage.setIsAuth(true);
     navigate("/dashboard");
+    location.reload();
   };
 
   return (
