@@ -1,14 +1,16 @@
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import UserStorage from "../../utils/storage/user";
+import useState from "../../utils/state/state";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const { setAuth } = useState();
 
   const submit = () => {
     UserStorage.setIsAuth(true);
+    setAuth(true);
     navigate("/dashboard");
-    location.reload();
   };
 
   return (

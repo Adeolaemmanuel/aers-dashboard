@@ -65,7 +65,6 @@ const AppLayout: React.FC<LayoutProps> = ({ children }) => {
           onClick={() => {
             UserStorage.ClearStorage();
             navigate("/");
-            location.reload();
           }}
         >
           <CiLogout size={25} />

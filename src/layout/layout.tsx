@@ -4,52 +4,42 @@ import UserStorage from "../utils/storage/user";
 import AppLayout from "./appLayout";
 import AuthLayout from "./authLayout";
 import { ToastContainer } from "react-toastify";
+import useState from "../utils/state/state";
 
 const Layout: React.FC<LayoutProps> = ({}) => {
   const navigate = useNavigate();
+  const { auth } = useState();
 
   React.useLayoutEffect(() => {
-    if (UserStorage.getIsAuth()) navigate("/dashboard");
-    if (!UserStorage.getIsAuth()) navigate("/");
-  }, [UserStorage.getIsAuth()]);
+    if (auth) navigate("/dashboard");
+    if (!auth) navigate("/");
+  }, [auth]);
 
   return (
     <React.Fragment>
       {UserStorage.getIsAuth() && (
         <AppLayout>
           <Outlet />
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
         </AppLayout>
       )}
 
       {!UserStorage.getIsAuth() && (
         <AuthLayout>
           <Outlet />
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
         </AuthLayout>
       )}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </React.Fragment>
   );
 };
