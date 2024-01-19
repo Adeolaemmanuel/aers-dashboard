@@ -5,7 +5,7 @@ import slugify from "slugify";
 export default class Api {
 	constructor(config?: CreateAxiosDefaults<any> | undefined) {
 		this.api = axios.create({
-			baseURL: process.env.VITE_BASE_PATH,
+			baseURL: import.meta.env.VITE_BASE_PATH,
 			...config,
 		});
 
