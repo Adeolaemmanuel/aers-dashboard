@@ -51,7 +51,7 @@ const Login: React.FC = () => {
           />
         </div>
         <Button onClick={submit} className="mt-6" fullWidth>
-          sign up
+          sign in
         </Button>
       </form>
     </Card>
