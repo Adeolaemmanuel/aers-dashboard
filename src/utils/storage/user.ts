@@ -24,6 +24,7 @@ export default class UserStorage {
       return undefined;
     }
   }
+
   static setFirstName(first_name: string) {
     this.SetUser("first_name", first_name);
   }
@@ -35,6 +36,7 @@ export default class UserStorage {
       return undefined;
     }
   }
+
   static setLastName(last_name: string) {
     this.SetUser("last_name", last_name);
   }
@@ -46,6 +48,7 @@ export default class UserStorage {
       return undefined;
     }
   }
+
   static setEmail(email: string) {
     return this.SetUser("email", email);
   }
@@ -63,6 +66,7 @@ export default class UserStorage {
       return false;
     }
   }
+
   static setIsAuth(is_auth: boolean) {
     this.SetUser("is_auth", is_auth);
   }
@@ -70,6 +74,7 @@ export default class UserStorage {
   static setToken(token: string) {
     this.SetUser("token", token);
   }
+  
   static getToken() {
     try {
       return this.GetUser().token;
