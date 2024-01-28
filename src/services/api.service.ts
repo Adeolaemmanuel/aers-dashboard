@@ -161,13 +161,13 @@ export default class Api {
 	}
 
 	protected async addStage(
-		slug: string,
+		name: string,
 		setLoading?: React.Dispatch<React.SetStateAction<boolean>>
 	) {
 		try {
 			setLoading?.(true);
 			const res = await this.api?.post<AersRes<Stages>>("/system/stages/add", {
-				slug,
+				name,
 			});
 			setLoading?.(false);
 			if (res?.data.error) {
