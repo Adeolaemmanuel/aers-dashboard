@@ -12,7 +12,6 @@ import {
 } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import Api from "../../../services/api.service";
-import { AiTwotoneDelete } from "react-icons/ai";
 import QuestionOptions from "./components/questionOptions";
 import QuestionCategories from "./components/questionsCategories";
 
