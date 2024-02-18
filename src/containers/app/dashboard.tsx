@@ -39,7 +39,7 @@ const DashBoard: React.FC = () => {
 			},
 			title: {
 				display: true,
-				text: "",
+				text: "Aers",
 			},
 		},
 	};
