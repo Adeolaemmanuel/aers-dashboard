@@ -18,6 +18,7 @@ const EditAndUpdate: React.FC<ViewSystemProps> = ({
 	dto,
 	system,
 	type,
+	title = "Categories",
 }) => {
 	const [data, setData] = React.useState(dto);
 	const [loading, setLoading] = React.useState(false);
@@ -33,7 +34,7 @@ const EditAndUpdate: React.FC<ViewSystemProps> = ({
 		<React.Fragment>
 			<Dialog open={open} handler={handleClick!} className="p-5">
 				<DialogHeader className="flex flex-row justify-between">
-					<span className="block">Category details</span>
+					<span className="block">{title} details</span>
 					<Button
 						variant="text"
 						color="red"

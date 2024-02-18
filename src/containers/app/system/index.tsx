@@ -64,6 +64,7 @@ const System: React.FC = () => {
 				</TabsBody>
 			</Tabs>
 			<EditAndUpdate
+				title={systemVal === "stages" ? "Categories" : "Designation"}
 				open={showModal}
 				type={actionType}
 				dto={dto}

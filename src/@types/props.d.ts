@@ -30,4 +30,15 @@ type ViewSystemProps = {
 	system: System;
 	refetchData?: any;
 	type: "add" | "edit";
+	title: string;
+};
+
+type QuestionOptionsProps = {
+	setQuestion?: (data) => void;
+	set?: (data) => void;
+	options: string[];
+};
+type QuestionCategoriesProps = {
+	setQuestion: (data) => void;
+	options: { [x: string]: string[] };
 };
